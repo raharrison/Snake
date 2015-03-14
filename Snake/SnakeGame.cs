@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Media;
 using System.Windows.Forms;
 
 namespace Snake
@@ -141,7 +142,7 @@ namespace Snake
 
             // Fill the game speeds and set the initial speed
             FillSpeeds(gameSpeeds);
-            gameSpeed = 4;
+            gameSpeed = 2;
 
             // Initially the game has not been started
             gameStarted = false;
@@ -276,12 +277,14 @@ namespace Snake
                     food = GetRandomSector();
                     snake.Grow(5);
                     score += 10;
+                    PlaySound(SoundToPlay.AteFood);
                 }
 
                 // If the game is over and the snake is moving then the game has ended
                 if (IsGameOver() && snake.MovingDirection != Direction.NotMoving)
                 {
                     gameEnded = true;
+                    PlaySound(SoundToPlay.GameOver);
                 }
             }
 
@@ -581,6 +584,39 @@ namespace Snake
                 // Otherwise we can just queue the new direction
                 turnQueue.Add(newDirection);
             }
+        }
+
+        /// <summary>
+        /// SoundToPlay
+        /// </summary>
+        enum SoundToPlay
+        {
+            AteFood,
+            GameOver
+        }
+
+        /// <summary>
+        /// PlaySound - plays sound based on game event
+        /// </summary>
+        /// <param name="sound">SoundToPlay sound</param>
+        private void PlaySound(SoundToPlay sound)
+        {
+            SoundPlayer player;
+
+            switch (sound)
+            {
+                case SoundToPlay.AteFood:
+                    player = new SoundPlayer(@"sounds\109662__grunz__success.wav");
+                    break;
+                case SoundToPlay.GameOver:
+                    player = new SoundPlayer(@"sounds\159408__noirenex__life-lost-game-over.wav");
+                    break;
+                default:
+                    player = new SoundPlayer();
+                    break;
+            }
+
+            player.Play();
         }
     }
 }
