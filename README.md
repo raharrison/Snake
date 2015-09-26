@@ -7,7 +7,7 @@ As the food is eaten, the snake grows by five blocks which makes it harder to co
 
 The game is over when the head of the snake hits any of the four walls or any part of it's body.
 
-![Screenshot](http://ryanharrison.co.uk/wp-content/uploads/2013/01/snake.png)
+![Screenshot](http://ryanharrison.co.uk/apps/snake/snake.png)
 
 Controls - 
 
